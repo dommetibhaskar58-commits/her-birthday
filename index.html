@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Chinni 💛</title>
+<style>
+    body {
+        margin: 0;
+        overflow: hidden;
+        background: black;
+        font-family: 'Segoe UI', sans-serif;
+        text-align: center;
+        color: white;
+    }
+
+    #screen {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, #14001f, #3a015c);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 30px;
+        transition: opacity 3s ease;
+    }
+
+    #message {
+        font-size: 1.8em;
+        max-width: 900px;
+        line-height: 1.6;
+        min-height: 200px;
+    }
+
+    .flower {
+        position: absolute;
+        top: -50px;
+        font-size: 26px;
+        animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+        to { transform: translateY(110vh); }
+    }
+
+    .blast {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: radial-gradient(circle, #ff66cc, orange, red);
+        border-radius: 50%;
+        animation: explode 1s ease-out forwards;
+    }
+
+    @keyframes explode {
+        0% { transform: scale(1); opacity: 1; }
+        100% { transform: scale(8); opacity: 0; }
+    }
+
+    #finalMessage {
+        font-size: 3.5em;
+        opacity: 0;
+        transition: opacity 4s ease;
+        color: #ffd700;
+    }
+
+    #subText {
+        font-size: 1.5em;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+
+<div id="screen">
+    <div id="message"></div>
+</div>
+
+<div id="finalMessage">
+    🎉 Happy Birthday Chinni 🎉
+    <div id="subText">
+        💕 My Bangaram 💕<br>
+        🌸 March 10 🌸
+    </div>
+</div>
+
+<script>
+    const text = `Hey Chinni...
+
+Before March 10 arrives,
+I just want to tell you something from my heart...
+
+You are not just my best friend.
+You are my happiness, my peace, my comfort.
+
+Bangaram... you are truly special to me.
+Every smile of yours makes my world brighter.
+
+March 10 isn’t just a date...
+It’s the day my favorite person was born. 💛`;
+
+    const messageDiv = document.getElementById("message");
+    const finalMessage = document.getElementById("finalMessage");
+    const screen = document.getElementById("screen");
+
+    let i = 0;
+    function typeWriter() {
+        if (i < text.length) {
+            messageDiv.innerHTML += text.charAt(i) === "\n" ? "<br>" : text.charAt(i);
+            i++;
+            setTimeout(typeWriter, 40);
+        }
+    }
+
+    setTimeout(typeWriter, 1000);
+
+    function createFlower() {
+        const flower = document.createElement("div");
+        flower.classList.add("flower");
+        flower.innerHTML = "🌸";
+        flower.style.left = Math.random() * 100 + "vw";
+        flower.style.animationDuration = (4 + Math.random() * 4) + "s";
+        document.body.appendChild(flower);
+        setTimeout(() => flower.remove(), 8000);
+    }
+
+    let flowerInterval = setInterval(createFlower, 300);
+
+    function createBlast(side) {
+        const blast = document.createElement("div");
+        blast.classList.add("blast");
+        blast.style.top = Math.random() * 80 + "vh";
+
+        if (side === "left") blast.style.left = "0";
+        else blast.style.right = "0";
+
+        document.body.appendChild(blast);
+        setTimeout(() => blast.remove(), 1000);
+    }
+
+    let blastInterval = setInterval(() => {
+        createBlast("left");
+        createBlast("right");
+    }, 700);
+
+    setTimeout(() => {
+        clearInterval(flowerInterval);
+        clearInterval(blastInterval);
+        screen.style.opacity = 0;
+
+        setTimeout(() => {
+            finalMessage.style.opacity = 1;
+        }, 3000);
+
+    }, 18000);
+</script>
+
+</body>
+</html>
